@@ -5,6 +5,7 @@
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Active%20Learning-success?style=for-the-badge)
 ![Students](https://img.shields.io/badge/NMIMS-Engineering%20Students-blue?style=for-the-badge)
+![Batch](https://img.shields.io/badge/Batch-IT%20&%20CE%20(Batch%202)-red?style=for-the-badge)
 ![Progress](https://img.shields.io/badge/Day%201-Completed-brightgreen?style=for-the-badge)
 ![Training](https://img.shields.io/badge/Training-In%20Progress-success?style=for-the-badge)
 
@@ -26,7 +27,7 @@ Everything you need to ace coding interviews and become a problem-solving expert
 <td width="33%" align="center">
 
 ### 📦 **Collections**
-Arrays, ArrayList, Sets, Maps
+Arrays, ArrayList, Lists
 
 [Jump to Topics →](#-collections-framework)
 
@@ -61,14 +62,15 @@ Day 1 - Collections & Arrays:
 ✅ Arrays - Basics & Manipulation
 ✅ ArrayList - Dynamic Arrays
 ✅ Collections Framework Overview
-✅ Sets - HashSet, LinkedHashSet, TreeSet
 ✅ Lists - ArrayList, LinkedList
-✅ Duplicate Removal Problem
+✅ Move Zeroes to End Problem
+✅ Remove Duplicates Problem
 ✅ Practice Problems
 
 Day 2 - Collections Advanced & Array Algorithms:
 🔜 IN PROGRESS
 
+✅ Sets (HashSet, LinkedHashSet, TreeSet)
 ✅ Map Interface (HashMap, TreeMap, LinkedHashMap)
 ✅ Queue Interface (PriorityQueue, Deque)
 ✅ Collections Utility Class
@@ -85,26 +87,24 @@ Day 2 - Collections Advanced & Array Algorithms:
 graph LR
     A[📦 Arrays] --> B[📋 ArrayList]
     B --> C[🎯 Collections]
-    C --> D[🏷️ Sets]
-    D --> E[📚 Lists]
-    E --> F[🗺️ Map]
-    F --> G[📬 Queue]
-    G --> H[🛠️ Collections Utils]
-    H --> I[🪟 Sliding Window]
-    I --> J[➕ Prefix Sum]
-    J --> K[🔥 Problem Solving]
+    C --> D[📚 Lists]
+    D --> E[🗺️ Map]
+    E --> F[📬 Queue]
+    F --> G[🛠️ Collections Utils]
+    G --> H[🪟 Sliding Window]
+    H --> I[➕ Prefix Sum]
+    I --> J[🔥 Problem Solving]
     
     style A fill:#90EE90
     style B fill:#90EE90
     style C fill:#90EE90
     style D fill:#90EE90
-    style E fill:#90EE90
+    style E fill:#FFD700
     style F fill:#FFD700
     style G fill:#FFD700
-    style H fill:#FFD700
+    style H fill:#87CEEB
     style I fill:#87CEEB
-    style J fill:#87CEEB
-    style K fill:#FF6B6B
+    style J fill:#FF6B6B
 ```
 
 ---
@@ -328,7 +328,7 @@ Collection (Interface)
     │   ├── LinkedList
     │   └── Vector (Legacy)
     ├── Set (Interface)
-    │   ├── HashSet ← Most used
+    │   ├── HashSet
     │   ├── LinkedHashSet
     │   ├── TreeSet
     │   └── EnumSet
@@ -348,135 +348,6 @@ Map (Separate Interface)
 ---
 
 </details>
-
-<details open>
-<summary><h3>🏷️ Sets Collection</h3></summary>
-
-> **Set** is an unordered collection of unique elements (no duplicates).
-
-### 1️⃣ **HashSet** - Unordered Unique Elements
-
-```java
-import java.util.HashSet;
-
-public class HashSetDemo {
-    public static void main(String[] args) {
-        HashSet<Integer> set = new HashSet<>();
-        
-        // ADD - O(1) average
-        set.add(10);
-        set.add(20);
-        set.add(30);
-        set.add(10);  // Duplicate - ignored
-        System.out.println(set);  // Output: [20, 10, 30] (order may vary)
-        
-        // SIZE - O(1)
-        System.out.println("Size: " + set.size());  // 3
-        
-        // CONTAINS - O(1) average
-        System.out.println("Contains 20: " + set.contains(20));  // true
-        
-        // REMOVE - O(1) average
-        set.remove(10);
-        System.out.println("After remove: " + set);  // [20, 30]
-        
-        // CLEAR - O(n)
-        // set.clear();
-        
-        // ITERATE
-        for (int val : set) {
-            System.out.println(val);
-        }
-    }
-}
-```
-
-**Characteristics:**
-- ✅ No duplicates
-- ✅ Unordered
-- ✅ Null allowed
-- ✅ O(1) average operations
-- ❌ No index access
-
----
-
-### 2️⃣ **LinkedHashSet** - Ordered Unique Elements
-
-```java
-import java.util.LinkedHashSet;
-
-public class LinkedHashSetDemo {
-    public static void main(String[] args) {
-        LinkedHashSet<String> set = new LinkedHashSet<>();
-        
-        set.add("Apple");
-        set.add("Banana");
-        set.add("Mango");
-        set.add("Apple");  // Duplicate - ignored
-        
-        System.out.println(set);
-        // Output: [Apple, Banana, Mango] (insertion order preserved)
-    }
-}
-```
-
-**Characteristics:**
-- ✅ No duplicates
-- ✅ **Maintains insertion order**
-- ✅ Slightly slower than HashSet
-- ✅ O(1) average operations
-
----
-
-### 3️⃣ **TreeSet** - Sorted Unique Elements
-
-```java
-import java.util.TreeSet;
-
-public class TreeSetDemo {
-    public static void main(String[] args) {
-        TreeSet<Integer> set = new TreeSet<>();
-        
-        set.add(30);
-        set.add(10);
-        set.add(20);
-        set.add(10);  // Duplicate - ignored
-        
-        System.out.println(set);
-        // Output: [10, 20, 30] (sorted order)
-        
-        // Additional methods
-        System.out.println("First: " + set.first());    // 10
-        System.out.println("Last: " + set.last());      // 30
-        System.out.println("Lower than 20: " + set.lower(20));  // 10
-        System.out.println("Higher than 20: " + set.higher(20)); // 30
-    }
-}
-```
-
-**Characteristics:**
-- ✅ No duplicates
-- ✅ **Sorted order**
-- ✅ O(log n) operations
-- ✅ Can define custom comparator
-
----
-
-### 📊 Sets Comparison Table
-
-| Feature | HashSet | LinkedHashSet | TreeSet |
-|:--------|:-------:|:-------------:|:-------:|
-| **Duplicates** | ❌ No | ❌ No | ❌ No |
-| **Ordered** | ❌ No | ✅ Insertion | ✅ Sorted |
-| **Speed** | Fastest | Fast | Slower |
-| **Time Complexity** | O(1) | O(1) | O(log n) |
-| **Space** | O(n) | O(n) | O(n) |
-| **Null** | ✅ Allowed | ✅ Allowed | ❌ No |
-| **Use Case** | General | Need order | Need sorted |
-
-</details>
-
----
 
 <details open>
 <summary><h3>📚 Lists Collection</h3></summary>
@@ -553,6 +424,141 @@ public class LinkedListDemo {
 ---
 
 <details open>
+<summary><h3>💾 Array Problem Solving - Move Zeroes</h3></summary>
+
+> **Problem:** Move all zeros to the end of the array while maintaining the relative order of non-zero elements.
+
+### 🎯 Approach: Two Pointers
+
+The two-pointer technique uses one pointer to mark the position for the next non-zero element.
+
+#### 🔧 Implementation
+
+```java
+public class MoveZeroes {
+    public static void main(String[] args) {
+        int[] arr = {0, 4, 0, 9};
+        
+        moveZeroes(arr);
+        
+        // Print result
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        // Output: 4 9 0 0
+    }
+    
+    public static void moveZeroes(int[] arr) {
+        /*
+        Two-pointer approach:
+        - j tracks position for next non-zero element
+        - i traverses the entire array
+        - When we find non-zero, swap with position j
+        
+        Time Complexity: O(n) - single pass
+        Space Complexity: O(1) - in-place operation
+        */
+        
+        int j = 0;  // Position for next non-zero element
+        
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                // Found a non-zero element
+                // Swap it to position j
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                j++;
+            }
+        }
+    }
+}
+```
+
+#### 🎯 Dry Run Example: `{0, 4, 0, 9}`
+
+```
+Initial: arr = [0, 4, 0, 9], j = 0
+
+i=0: arr[0]=0 → Skip (is zero)
+
+i=1: arr[1]=4 → Not zero
+     Swap arr[1] and arr[0]
+     arr = [4, 0, 0, 9]
+     j = 1
+
+i=2: arr[2]=0 → Skip (is zero)
+
+i=3: arr[3]=9 → Not zero
+     Swap arr[3] and arr[1]
+     arr = [4, 9, 0, 0]
+     j = 2
+
+Final Result: [4, 9, 0, 0] ✅
+```
+
+#### 📊 Visualization
+
+```
+Step 1: [0, 4, 0, 9]  (j=0, i=0: skip zero)
+        ↑
+        j
+        
+Step 2: [4, 0, 0, 9]  (i=1: found 4, swap)
+           ↑
+           j
+           
+Step 3: [4, 0, 0, 9]  (j=1, i=2: skip zero)
+           ↑
+           j
+           
+Step 4: [4, 9, 0, 0]  (i=3: found 9, swap)
+              ↑
+              j
+              
+Final: [4, 9, 0, 0] ✅
+```
+
+#### ⏱️ Complexity Analysis
+
+- **Time Complexity:** O(n)
+  - Single pass through array
+  - Each element visited once
+  
+- **Space Complexity:** O(1)
+  - No extra space used
+  - In-place swapping
+  
+- **Why this works:**
+  - When arr[i] ≠ 0, we move it forward
+  - Position j always marks the next available spot for non-zero
+  - By the end, all non-zeros are before all zeros
+
+#### 🔄 More Examples
+
+```java
+// Example 1: All zeros
+Input: [0, 0, 0]
+Output: [0, 0, 0]
+
+// Example 2: No zeros
+Input: [1, 2, 3]
+Output: [1, 2, 3]
+
+// Example 3: Mixed
+Input: [0, 1, 0, 3, 12]
+Output: [1, 3, 12, 0, 0]
+
+// Example 4: Zeros at end
+Input: [1, 2, 3, 0, 0]
+Output: [1, 2, 3, 0, 0]
+```
+
+</details>
+
+---
+
+<details open>
 <summary><h3>💾 Removing Duplicates - Complete Solution</h3></summary>
 
 > **Problem:** Remove all duplicate elements from an ArrayList while preserving elements.
@@ -613,11 +619,9 @@ Final: [1, 4, 3, 133, 345, 13]
 
 ---
 
-### ✅ Approach 2: Using HashSet (O(n))
+### ⚡ Approach 2: Using HashSet Constructor (O(n))
 
 ```java
-import java.util.HashSet;
-
 public class RemoveDuplicatesHashSet {
     public static void main(String[] args) {
         ArrayList<Integer> arr = new ArrayList<>();
@@ -627,15 +631,9 @@ public class RemoveDuplicatesHashSet {
             arr.add(val);
         }
         
-        HashSet<Integer> seen = new HashSet<>();
-        ArrayList<Integer> result = new ArrayList<>();
-        
-        for (int val : arr) {
-            if (!seen.contains(val)) {
-                seen.add(val);
-                result.add(val);
-            }
-        }
+        // Convert ArrayList to HashSet and back
+        // HashSet automatically removes duplicates
+        ArrayList<Integer> result = new ArrayList<>(new HashSet<>(arr));
         
         System.out.println("Result: " + result);
         // Output: [1, 4, 3, 133, 345, 13]
@@ -643,40 +641,19 @@ public class RemoveDuplicatesHashSet {
 }
 ```
 
-**Complexity Analysis:**
-- ⏱️ **Time:** O(n) - single pass
-- 💾 **Space:** O(n) - HashSet stores n elements
-- ✅ **Pros:** Fast, optimal
-- ❌ **Cons:** Extra space needed
-
----
-
-### ⚡ Approach 3: Using HashSet Constructor
-
-```java
-public class RemoveDuplicatesConstructor {
-    public static void main(String[] args) {
-        ArrayList<Integer> arr = new ArrayList<>();
-        int[] input = {1, 4, 1, 1, 1, 1, 1, 4, 3, 133, 345, 13, 13};
-        
-        for (int val : input) {
-            arr.add(val);
-        }
-        
-        // Convert ArrayList to HashSet and back
-        ArrayList<Integer> result = new ArrayList<>(new HashSet<>(arr));
-        
-        System.out.println("Result: " + result);
-        // Output: [1, 4, 3, 133, 345, 13] (order may vary)
-    }
-}
+**How it works:**
+```
+1. new HashSet<>(arr)      → Converts ArrayList to HashSet
+                             → Automatically removes duplicates
+                             
+2. new ArrayList<>(...)     → Converts back to ArrayList
 ```
 
 **Complexity Analysis:**
 - ⏱️ **Time:** O(n)
 - 💾 **Space:** O(n)
-- ✅ **Pros:** Most concise
-- ❌ **Cons:** Order not guaranteed
+- ✅ **Pros:** Concise, fast
+- ❌ **Cons:** Order not guaranteed, extra space
 
 ---
 
@@ -703,29 +680,12 @@ public class RemoveDuplicates {
         return arr;
     }
     
-    // Method 2: HashSet (O(n) time, O(n) space) - RECOMMENDED
+    // Method 2: Using HashSet Constructor (O(n) time, O(n) space) - RECOMMENDED
     public static ArrayList<Integer> removeDuplicatesHashSet(int[] input) {
         ArrayList<Integer> arr = new ArrayList<>();
-        HashSet<Integer> seen = new HashSet<>();
-        
         for (int val : input) arr.add(val);
         
-        ArrayList<Integer> result = new ArrayList<>();
-        for (int val : arr) {
-            if (!seen.contains(val)) {
-                seen.add(val);
-                result.add(val);
-            }
-        }
-        return result;
-    }
-    
-    // Method 3: Using LinkedHashSet to preserve order
-    public static ArrayList<Integer> removeDuplicatesLinkedHashSet(int[] input) {
-        ArrayList<Integer> arr = new ArrayList<>();
-        for (int val : input) arr.add(val);
-        
-        return new ArrayList<>(new LinkedHashSet<>(arr));
+        return new ArrayList<>(new HashSet<>(arr));
     }
     
     public static void main(String[] args) {
@@ -734,16 +694,25 @@ public class RemoveDuplicates {
         System.out.println("Original: " + Arrays.toString(input));
         System.out.println("Brute Force: " + removeDuplicatesBruteForce(input));
         System.out.println("HashSet: " + removeDuplicatesHashSet(input));
-        System.out.println("LinkedHashSet: " + removeDuplicatesLinkedHashSet(input));
         
         // Output:
         // Original: [1, 4, 1, 1, 1, 1, 1, 4, 3, 133, 345, 13, 13]
         // Brute Force: [1, 4, 3, 133, 345, 13]
         // HashSet: [1, 4, 3, 133, 345, 13]
-        // LinkedHashSet: [1, 4, 3, 133, 345, 13]
     }
 }
 ```
+
+#### 📊 Approach Comparison
+
+| Aspect | Brute Force | HashSet |
+|:-------|:-----------:|:-------:|
+| **Time** | O(n²) | O(n) |
+| **Space** | O(1) | O(n) |
+| **Speed** | Slow | Fast ⭐ |
+| **Order Preserved** | ✅ Yes | ❌ No |
+| **Code Simplicity** | Simple | Simpler ⭐ |
+| **Use Case** | Learning | Production |
 
 </details>
 
@@ -770,6 +739,11 @@ public class RemoveDuplicates {
 
 ```
 ✅ WILL COVER:
+├── 🏷️ Sets Interface
+│   ├── HashSet - Unordered unique
+│   ├── LinkedHashSet - Insertion order
+│   └── TreeSet - Sorted unique
+│
 ├── 🗺️ Map Interface
 │   ├── HashMap - Key-value pairs
 │   ├── TreeMap - Sorted keys
@@ -819,20 +793,16 @@ DAY 1 SUMMARY:
 
 3. COLLECTIONS:
    - List: ordered with duplicates
-   - Set: unordered, no duplicates
    - Queue: FIFO processing
    - Map: key-value pairs
+   - Set: unordered, no duplicates (coming Day 2)
 
-4. SETS:
-   - HashSet: fastest, unordered O(1)
-   - LinkedHashSet: insertion order O(1)
-   - TreeSet: sorted O(log n)
-
-5. LISTS:
+4. LISTS:
    - ArrayList: random access O(1), add/remove O(n)
    - LinkedList: fast add/remove O(1) at ends
 
-6. DUPLICATE REMOVAL:
+5. PROBLEM-SOLVING:
+   - Move Zeroes: Two Pointers technique O(n)
    - Brute Force: O(n²) time, O(1) space
    - HashSet: O(n) time, O(n) space - RECOMMENDED
 ```
@@ -866,17 +836,14 @@ Collections.copy(dest, src);      // Copy list
 // ✅ When you need index access and frequent lookup
 ArrayList<String> names = new ArrayList<>();
 
-// ✅ When you need unique elements only
-Set<Integer> uniqueNumbers = new HashSet<>();
-
-// ✅ When you need ordered unique elements
-Set<Integer> sortedUnique = new TreeSet<>();
+// ✅ When you need FIFO behavior
+Queue<Integer> tasks = new LinkedList<>();
 
 // ✅ When you need key-value mapping
 Map<String, Integer> ageCounts = new HashMap<>();
 
-// ✅ When you need queue behavior
-Queue<Integer> tasks = new LinkedList<>();
+// ✅ When you need list-like with fast add/remove
+LinkedList<String> commands = new LinkedList<>();
 ```
 
 ---
@@ -914,11 +881,12 @@ Queue<Integer> tasks = new LinkedList<>();
 ✅ Completed (Day 1):
   - Arrays basics and manipulation
   - ArrayList all operations
-  - Sets (HashSet, LinkedHashSet, TreeSet)
   - Lists (ArrayList, LinkedList)
+  - Move Zeroes to End (Two Pointers)
   - Duplicate removal (multiple approaches)
 
 🔜 Next (Day 2):
+  - Sets (HashSet, LinkedHashSet, TreeSet)
   - Map interface (HashMap, TreeMap, LinkedHashMap)
   - Queue interface
   - Collections utility class
@@ -938,9 +906,6 @@ Queue<Integer> tasks = new LinkedList<>();
                 Access    Add    Remove   Contains
 ArrayList       O(1)     O(n)    O(n)     O(n)
 LinkedList      O(n)     O(1)    O(1)     O(n)
-HashSet         —        O(1)    O(1)     O(1)
-LinkedHashSet   —        O(1)    O(1)     O(1)
-TreeSet         —        O(log n) O(log n) O(log n)
 HashMap         —        O(1)    O(1)     O(1)
 TreeMap         —        O(log n) O(log n) O(log n)
 PriorityQueue   O(n)     O(log n) O(log n) O(n)
@@ -957,7 +922,7 @@ PriorityQueue   O(n)     O(log n) O(log n) O(n)
 ### 📚 Documentation
 - [Java Collections](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collections.html)
 - [ArrayList Docs](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html)
-- [Set Interface](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html)
+- [List Interface](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)
 
 </td>
 <td>
@@ -990,22 +955,21 @@ Use Array when:
 
 ---
 
-### Q2: Why does duplicate removal with HashSet work faster?
+### Q2: Why does the Two Pointers approach work for Move Zeroes?
 **A:** Because:
-- HashSet has O(1) average lookup
-- Checked each element once → O(n)
-- Brute force checks each element against all others → O(n²)
-- Trade-off: HashSet uses O(n) extra space
+- We maintain pointer j for next non-zero position
+- When we find a non-zero at i, we swap it to position j
+- This puts all non-zeros before all zeros in a single pass
+- Time: O(n), Space: O(1) - optimal solution!
 
 ---
 
-### Q3: What's the difference between HashSet and TreeSet?
+### Q3: Why is HashSet better than nested loops for duplicates?
 **A:** 
-| Aspect | HashSet | TreeSet |
-|:-------|:-------:|:-------:|
-| Order | No | Yes (Sorted) |
-| Speed | Faster O(1) | Slower O(log n) |
-| Use | General purpose | Need sorted |
+- HashSet lookup: O(1) average
+- Brute force: checks each element against all others → O(n²)
+- Trade-off: HashSet uses O(n) extra space
+- For most cases, HashSet is worth the trade-off
 
 ---
 
@@ -1016,10 +980,9 @@ Use Array when:
 ```java
 // Collections Framework
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.TreeSet;
+import java.util.LinkedList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
@@ -1036,9 +999,9 @@ import java.util.*;
 ## 🚀 Next Steps
 
 1. **Review** - Re-read Day 1 materials
-2. **Practice** - Solve ArrayList problems
-3. **Experiment** - Create your own examples
-4. **Prepare** - Get ready for Day 2 (Map, Queue)
+2. **Practice** - Solve ArrayList problems on LeetCode
+3. **Experiment** - Modify examples and see what breaks
+4. **Prepare** - Get ready for Day 2 (Sets, Maps, Queues)
 5. **Ask** - Clarify any doubts before moving forward
 
 ---
@@ -1085,6 +1048,7 @@ for (int i = 0; i < arrList.size(); i++) {
 System.out.println(arrList);
 // Output: [1, 4, 3, 133, 345, 13]
 ```
+
 <br>
 
 ---
