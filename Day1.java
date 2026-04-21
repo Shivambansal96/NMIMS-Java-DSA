@@ -1,6 +1,4 @@
 
-import java.util.ArrayList;
-
 
 
 //     public static void main(String[] args) {
@@ -76,9 +74,12 @@ import java.util.ArrayList;
 // }
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 class Day1 {
     public static void main(String[] args) {
-        ArrayList<Integer> arrList = new ArrayList<>();
+        List<Integer> arrList = new LinkedList<>();
 
         int[] arr = {1, 4, 1, 1, 1, 1, 1, 4, 3, 133, 345, 13, 13};
 
