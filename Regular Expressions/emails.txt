@@ -1,0 +1,8 @@
+ShivamRBansal@gmail.com
+shivam.bansal@university.edu
+shivam-1216-bansal@my-work.net
+anushka-123242-mehta@china.online
+
+
+
+[a-zA-z0-9]+[.-]?[a-z0-9]+[-]?[a-z]*@{1}[a-z]+-?[a-z]*[.][a-z]+

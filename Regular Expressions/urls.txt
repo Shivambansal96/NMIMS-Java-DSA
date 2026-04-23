@@ -1,0 +1,10 @@
+https://www.google.com
+http://coreyms.com
+https://youtube.com
+https://www.nasa.gov
+ 
+htps://china.nasa.gov
+
+
+
+[a-z]{4,5}://(w{3})?[.]?[a-z]+\.[a-z]+

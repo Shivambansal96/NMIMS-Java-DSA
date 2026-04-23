@@ -1,0 +1,22 @@
+
+
+abcdefghijklmnopqurtuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+1234567890
+
+Ha HaHa
+
+MetaCharacters (Need to be escaped):
+.[{()\^$|?*+
+
+shineverse.co.in
+shineverse.com
+
+321-555-4321
+123.555.1234
+
+Mr. Bansal
+Mr. Shivam
+Ms Ankita
+Mrs. Robinson
+Mr. T
