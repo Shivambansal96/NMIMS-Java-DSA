@@ -96,113 +96,81 @@
 
 // ! ArrayDeque
 // import java.util.ArrayDeque;
-
 // public class Day2 {
-
 //     public static void main(String[] args) {
 //         ArrayDeque<Integer> adq = new ArrayDeque<>();
-
 //         adq.offer(43);
 //         adq.offerFirst(1);
 //         adq.offerLast(99);
-
 //         adq.poll();
 //         adq.pollFirst();
 //         adq.pollLast();
 //         System.out.println(adq);
-
 //         System.out.println(adq.peek());
 //         System.out.println(adq.peekFirst());
 //         System.out.println(adq.peekLast());
-
 //     }
 // }
-
-
-
 // ! PriorityQueue
 // import java.util.*;
 // public class Day2 {
 //     public static void main(String[] args) {
 //         PriorityQueue<Integer> pdq = new PriorityQueue<>();
-
 //         pdq.add(43);
-
 //         pdq.poll();
 //         pdq.poll();
-
 //         System.out.println(pdq);
 //     }
 // }
-
-
 // ! kth Largest element using PriorityQueue
 // import java.util.*;
 // public class Day2 {
 //     public static void main(String[] args) {
 //         PriorityQueue<Integer> pq = new PriorityQueue<>();
-
 //         int[] arr = {5, 1, 10, 3, 12, 2, 8};
 //         int k = 3;
-
 //         for(int val: arr) {
-
 //             pq.offer(val);
-
 //             if(pq.size() > k) {
 //                 pq.poll();
 //             }
 //         }
-
 //         System.out.println(pq);
 //     }
 // }
-
-
-
-
 // ! kth Smallest element using PriorityQueue
 // import java.util.*;
 // public class Day2 {
 //     public static void main(String[] args) {
 //         PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
-
 //         int[] arr = {5, 1, 10, 3, 12, 2, 8};
 //         int k = 3;
-
 //         for(int val: arr) {
-
 //             pq.offer(val);
-
 //             if(pq.size() > k) {
 //                 pq.poll();
 //             }
 //         }
-
 //         System.out.println(pq);
 //     }
 // }
-
-
-
-
 // ! Comparators 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Day2 {
 
     public static void main(String[] args) {
         List<Integer> arrList = new ArrayList<>(Arrays.asList(43, 11, 56, 99, 20));
 
-        Comparator<Integer> cmp = new Comparator<Integer>() {
-        
-            @Override
-            public int compare(Integer a, Integer b) {
-                if(a%10 > b%10)
-                    return 1;
-                else
-                    return -1;
+        Comparator<Integer> cmp = (Integer a, Integer b) -> {
+            if (a % 10 > b % 10) {
+                return 1;
+            } else {
+                return -1;
             }
         };
 
@@ -213,12 +181,8 @@ public class Day2 {
         //     else
         //         return -1;
         // };
-
-
         Collections.sort(arrList, cmp);
         System.out.println(arrList);
-
-
 
     }
 }

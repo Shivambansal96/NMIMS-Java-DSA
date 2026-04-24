@@ -102,7 +102,113 @@
 //         System.out.println("Size of LL = " + list.size());
 //     }
 // }
-// ! Doubly Linked List.
+// // ! Doubly Linked List.
+// public class Day5LL {
+//     Node head;
+//     Node tail;
+//     int size;
+//     class Node {
+//         int val;
+//         Node next = null;
+//         Node prev = null;
+//         Node(int value) {
+//             this.val = value;
+//         }
+//     }
+//     public void prepend(int val) {
+//         Node newNode = new Node(val);
+//         size++;
+//         if (head == null) {
+//             head = newNode;
+//             tail = newNode;
+//             return;
+//         }
+//         head.prev = newNode;
+//         newNode.next = head;
+//         head = newNode;
+//     }
+//     public void append(int val) {
+//         Node newNode = new Node(val);
+//         size++;
+//         if (head == null) {
+//             head = newNode;
+//             tail = newNode;
+//             return;
+//         }
+//         tail.next = newNode;
+//         newNode.prev = tail;
+//         tail = newNode;
+//     }
+//     public void deleteStart() {
+//         if (head == null) {
+//             System.out.println("List is Empty!!!");
+//             return;
+//         }
+//         if (head.next == null) {
+//             head = null;
+//             tail = null;
+//             return;
+//         }
+//         head = head.next;
+//         head.prev = null;
+//         size--;
+//     }
+//     public void deleteEnd() {
+//         // LL has 0 Nodes
+//         if (head == null) {
+//             System.out.println("List is Empty!!!");
+//             return;
+//         }
+//         size--;
+//         // LL has 1 Node
+//         if (head.next == null) {
+//             head = null;
+//             tail = null;
+//             return;
+//         }
+//         // LL has more than 1 Nodes
+//         tail = tail.prev;
+//         tail.next = null;
+//     }
+//     public int size() {
+//         return size;
+//     }
+//     public void reverseList() {
+//         Node currentNode = tail;
+//         while (currentNode != null) {
+//             System.out.print(currentNode.val + " <-> ");
+//             currentNode = currentNode.prev;
+//         }
+//         System.out.println("null");
+//     }
+//     public void printList() {
+//         Node currentNode = head;
+//         while (currentNode != null) {
+//             System.out.print(currentNode.val + " <-> ");
+//             currentNode = currentNode.next;
+//         }
+//         System.out.println("null");
+//     }
+//     public static void main(String[] args) {
+//         Day5LL list = new Day5LL();
+//         list.prepend(1);
+//         list.append(100);
+//         list.prepend(1);
+//         // System.out.println("Size of LL = " + list.size());
+//         list.append(20);
+//         list.append(2000);
+//         list.printList();
+//         list.deleteStart();
+//         // list.append(100);
+//         list.printList();
+//         list.deleteEnd();
+//         list.printList();
+//         System.out.println("--------------------");
+//         list.reverseList();
+//         // System.out.println("Size of LL = " + list.size());
+//     }
+// }
+// ! Circular Doubly Linked List.
 public class Day5LL {
 
     Node head;
@@ -122,33 +228,42 @@ public class Day5LL {
 
     public void prepend(int val) {
         Node newNode = new Node(val);
-
         size++;
+
         if (head == null) {
-            head = newNode;
-            tail = newNode;
+            head = tail = newNode;
+            head.next = head;
+            head.prev = head;
             return;
         }
 
-        head.prev = newNode;
         newNode.next = head;
+        newNode.prev = tail;
+
+        head.prev = newNode;
+        tail.next = newNode;
+
         head = newNode;
     }
 
     public void append(int val) {
         Node newNode = new Node(val);
-
         size++;
+
         if (head == null) {
-            head = newNode;
-            tail = newNode;
+            head = tail = newNode;
+            head.next = head;
+            head.prev = head;
             return;
         }
 
-        tail.next = newNode;
         newNode.prev = tail;
-        tail = newNode;
+        newNode.next = head;
 
+        tail.next = newNode;
+        head.prev = newNode;
+
+        tail = newNode;
     }
 
     public void deleteStart() {
@@ -157,65 +272,71 @@ public class Day5LL {
             return;
         }
 
-        if (head.next == null) {
-            head = null;
-            tail = null;
+        size--;
+
+        // Only one node
+        if (head == tail) {
+            head = tail = null;
             return;
         }
 
         head = head.next;
-        head.prev = null;
-
-        size--;
-
+        head.prev = tail;
+        tail.next = head;
     }
 
     public void deleteEnd() {
-        // LL has 0 Nodes
         if (head == null) {
             System.out.println("List is Empty!!!");
             return;
         }
 
         size--;
-        // LL has 1 Node
-        if (head.next == null) {
-            head = null;
-            tail = null;
+
+        // Only one node
+        if (head == tail) {
+            head = tail = null;
             return;
         }
 
-        // LL has more than 1 Nodes
         tail = tail.prev;
-        tail.next = null;
-
+        tail.next = head;
+        head.prev = tail;
     }
 
     public int size() {
-
         return size;
     }
 
-    public void reverseList() {
-        Node currentNode = tail;
-
-        while (currentNode != null) {
-            System.out.print(currentNode.val + " <-> ");
-            currentNode = currentNode.prev;
+    public void printList() {
+        if (head == null) {
+            System.out.println("List is Empty!!!");
+            return;
         }
 
-        System.out.println("null");
+        Node current = head;
+
+        do {
+            System.out.print(current.val + " <-> ");
+            current = current.next;
+        } while (current != head);
+
+        System.out.println("(back to head)");
     }
 
-    public void printList() {
-        Node currentNode = head;
-
-        while (currentNode != null) {
-            System.out.print(currentNode.val + " <-> ");
-            currentNode = currentNode.next;
+    public void reverseList() {
+        if (tail == null) {
+            return;
         }
 
-        System.out.println("null");
+        Node current = tail;
+
+        do {
+            System.out.print(current.val + " <-> ");
+            current = current.prev;
+        } while (current != tail);
+
+        System.out.println("(back to tail)");
     }
 
     public static void main(String[] args) {
@@ -224,19 +345,18 @@ public class Day5LL {
         list.prepend(1);
         list.append(100);
         list.prepend(1);
-        // System.out.println("Size of LL = " + list.size());
         list.append(20);
         list.append(2000);
 
         list.printList();
-        list.deleteStart();
-        // list.append(100);
-        list.printList();
-        list.deleteEnd();
 
+        list.deleteStart();
         list.printList();
+
+        list.deleteEnd();
+        list.printList();
+
         System.out.println("--------------------");
         list.reverseList();
-        // System.out.println("Size of LL = " + list.size());
     }
 }

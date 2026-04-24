@@ -6,7 +6,7 @@
 ![Status](https://img.shields.io/badge/Status-Active%20Learning-success?style=for-the-badge)
 ![Students](https://img.shields.io/badge/NMIMS-Engineering%20Students-blue?style=for-the-badge)
 ![Batch](https://img.shields.io/badge/Batch-IT%20&%20CE%20(Batch%202)%20&%20CS%20(Batch%204)-red?style=for-the-badge)
-![Progress](https://img.shields.io/badge/Day%204-Completed-brightgreen?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Day%205-Completed-brightgreen?style=for-the-badge)
 ![Training](https://img.shields.io/badge/Training-In%20Progress-success?style=for-the-badge)
 
 ### 🚀 *Master Data Structures & Algorithms with Java!*
@@ -110,18 +110,24 @@ Day 4 - Recursion & Pattern Matching:
 ✅ Quick Sort (Recursive Implementation)
 ✅ Problem Solving & Practice
 
-Day 5 - LinkedList (Singly, Doubly, Circular):
+Day 5 - Backtracking, Recursion & LinkedList (Singly, Doubly, Circular):
+████████████████████████████████ 100%
+
+✅ Backtracking Concepts - N Queens Problem Explanation
+✅ Recursion - Count Total Paths (Maze Path Problem)
+✅ Singly LinkedList - Creation, Traversal, Insertion & Deletion
+✅ Doubly LinkedList - Creation, Traversal, Insertion & Deletion
+✅ Circular Doubly LinkedList - All Operations with Circular Structure
+✅ Advanced LinkedList Problems & Practice
+
+Day 6 - Stack & Queue:
 🔜 IN PROGRESS
 
-⏳ Singly LinkedList - Creation & Traversal
-⏳ Singly LinkedList - Insertion Operations (Head, Middle, End)
-⏳ Singly LinkedList - Deletion Operations
-⏳ Doubly LinkedList - Node Structure with prev/next pointers
-⏳ Doubly LinkedList - Forward & Backward Traversal
-⏳ Doubly LinkedList - Insertion & Deletion at Both Ends
-⏳ Circular LinkedList - Circular Structure
-⏳ Circular LinkedList - Insertion & Deletion with Circularity
-⏳ Advanced LinkedList Problems & Practice
+⏳ Stack - ArrayList Implementation
+⏳ Stack - LinkedList Implementation
+⏳ Queue - LinkedList Implementation (Start, not complete)
+⏳ Queue - ArrayDeque Implementation (Coming next)
+⏳ Priority Queue & Advanced Operations
 ```
 
 ---
@@ -1552,7 +1558,757 @@ Result (In-Order): 99, 98, 47, 45, 44, 13, 1
 
 ---
 
-## ✅ Problems Covered - Day 1
+## 📚 Day 5: Backtracking, Recursion & LinkedList
+
+---
+
+<details open>
+<summary><h3>🎯 Backtracking Concepts</h3></summary>
+
+> **Backtracking** is a problem-solving technique that considers searching every possible combination in order to solve a computational problem incrementally, one piece at a time, removing those solutions that fail to satisfy the constraints of the problem at any point of time.
+
+### 1️⃣ **What is Backtracking?**
+
+**Key Components:**
+1. **Choice:** At each step, explore all choices
+2. **Constraints:** Check if current choice is valid
+3. **Goal:** Reach the desired final state
+4. **Backtrack:** If path doesn't lead to solution, undo and try another
+
+**When to Use:**
+- ✅ N Queens Problem - Place n queens without conflicts
+- ✅ Sudoku Solver - Fill grid following rules
+- ✅ Maze Solving - Find path through maze
+- ✅ Permutations/Combinations - Generate all possibilities
+- ✅ Graph Coloring - Assign colors to vertices
+- ✅ Hamiltonian Path - Find path visiting each vertex once
+
+**Decision Tree Example:**
+```
+                    START
+                    /   \
+                 Choice1  Choice2
+                /     \   /    \
+            Valid  Invalid Valid Invalid
+             /              /
+         Continue      Continue
+          /    \          /    \
+      Choice3 Choice4 ...etc...
+
+If a path doesn't satisfy constraint → Backtrack to previous choice
+```
+
+---
+
+### 2️⃣ **N Queens Problem - Concept Explanation**
+
+**Problem Statement:** Place N queens on an N×N chessboard such that no two queens attack each other.
+
+**Constraints:**
+- ✅ No two queens on same row (one queen per row)
+- ✅ No two queens on same column
+- ✅ No two queens on same diagonal (both directions)
+
+**Example: 4 Queens Problem**
+
+```
+Solution 1:           Solution 2:
+. Q . .               . . Q .
+. . . Q               Q . . .
+Q . . .               . . . Q
+. . Q .               . Q . .
+
+Positions:            Positions:
+Row 0, Col 1          Row 0, Col 2
+Row 1, Col 3          Row 1, Col 0
+Row 2, Col 0          Row 2, Col 3
+Row 3, Col 2          Row 3, Col 1
+```
+
+**Backtracking Approach:**
+
+```
+Algorithm:
+1. Start with row 0
+2. Try placing queen in each column of current row
+3. Check if placement is valid (no conflicts with previously placed queens)
+4. If valid:
+   - Mark position as occupied
+   - Move to next row
+   - Recursively solve for next row
+5. If no valid placement found OR solution complete:
+   - Backtrack to previous row
+   - Try next column for that row
+6. Repeat until all n solutions found OR no solution exists
+
+Time Complexity: O(n!) - worst case explores all permutations
+Space Complexity: O(n) - recursion depth + board storage
+```
+
+**Why Backtracking?**
+- Naive approach: Check all n^n possible placements → Exponential
+- Backtracking: Prune invalid branches early → Still exponential but much faster in practice
+
+**Real-world Applications:**
+- ✅ Job scheduling
+- ✅ Circuit design
+- ✅ Puzzle solving (Sudoku, crosswords)
+- ✅ Game AI (chess, checkers)
+- ✅ Resource allocation
+
+</details>
+
+---
+
+<details open>
+<summary><h3>🔀 Recursion Problem: Count Total Paths in Maze</h3></summary>
+
+> **Problem:** Find the total number of unique paths in an n×m grid where you can only move right or down.
+
+### 🎯 Problem Definition
+
+Starting at top-left (0,0), reach bottom-right (n-1, m-1) by moving only:
+- Right (increase column)
+- Down (increase row)
+
+**Example: 3×3 Grid**
+
+```
+Start → . . .
+        . . .
+        . . ← End
+
+Possible paths:
+1. Right, Right, Down, Down
+2. Right, Down, Right, Down
+3. Right, Down, Down, Right
+4. Down, Right, Right, Down
+5. Down, Right, Down, Right
+6. Down, Down, Right, Right
+
+Total: 6 paths
+```
+
+### 1️⃣ **Recursive Solution - From Day5.java**
+
+```java
+public class Day5 {
+    public static int countMaze(int i, int j, int n, int m) {
+        // Base case 1: Out of bounds
+        if (i == n || j == m) 
+            return 0;
+        
+        // Base case 2: Reached destination
+        if (i == n - 1 && j == m - 1) 
+            return 1;
+        
+        // Recursive case: Move down or right
+        int downPath = countMaze(i + 1, j, n, m);   // Move down
+        int rightPath = countMaze(i, j + 1, n, m);  // Move right
+        
+        return downPath + rightPath;
+    }
+    
+    public static void main(String[] args) {
+        int n = 3, m = 3;
+        int res = countMaze(0, 0, n, m);
+        System.out.println("Total Paths = " + res);
+        // Output: Total Paths = 6
+    }
+}
+```
+
+### 2️⃣ **Dry Run: countMaze(0, 0, 3, 3)**
+
+```
+countMaze(0,0) = countMaze(1,0) + countMaze(0,1)
+                = [countMaze(2,0) + countMaze(1,1)] + [countMaze(1,1) + countMaze(0,2)]
+                
+Detailed expansion:
+Level 0: countMaze(0,0)
+         /                    \
+Level 1: countMaze(1,0)    countMaze(0,1)
+         /        \          /        \
+        ...       ...      ...       ...
+        
+Base cases reached:
+- countMaze(2,2) → returns 1 (destination reached) ✅
+- countMaze(3,*) → returns 0 (out of bounds) ❌
+- countMaze(*,3) → returns 0 (out of bounds) ❌
+
+Total paths collected: 6 ✅
+```
+
+### 3️⃣ **Complexity Analysis**
+
+**Time Complexity:** O(2^(n+m))
+- In worst case, explores both down and right at each cell
+- Total recursive calls can be exponential
+
+**Space Complexity:** O(n + m)
+- Recursion call stack depth = max distance from (0,0) to (n-1, m-1)
+- Maximum depth = n + m - 2
+
+### 4️⃣ **Examples & Variations**
+
+```
+Grid 2×2:  Total Paths = 2
+Path 1: Down, Right
+Path 2: Right, Down
+
+Grid 1×5:  Total Paths = 1
+Path 1: Right, Right, Right, Right
+
+Grid 5×1:  Total Paths = 1
+Path 1: Down, Down, Down, Down
+
+Grid 3×3:  Total Paths = 6
+Grid 4×4:  Total Paths = 20
+Grid 5×5:  Total Paths = 70
+
+Formula: C(n+m-2, n-1) = (n+m-2)! / ((n-1)! * (m-1)!)
+For 3×3: C(4,2) = 4!/(2!*2!) = 6 ✅
+```
+
+### 5️⃣ **Optimized Solution - Dynamic Programming (Preview)**
+
+```java
+// Can be optimized using DP - O(n*m) time, O(n*m) space
+public static int countMazeDP(int n, int m) {
+    int[][] dp = new int[n][m];
+    
+    // Fill first row and column with 1
+    for (int i = 0; i < n; i++) dp[i][0] = 1;
+    for (int j = 0; j < m; j++) dp[0][j] = 1;
+    
+    // Fill rest using: dp[i][j] = dp[i-1][j] + dp[i][j-1]
+    for (int i = 1; i < n; i++) {
+        for (int j = 1; j < m; j++) {
+            dp[i][j] = dp[i-1][j] + dp[i][j-1];
+        }
+    }
+    
+    return dp[n-1][m-1];
+}
+```
+
+</details>
+
+---
+
+<details open>
+<summary><h3>🔗 LinkedList - Complete Implementation Guide</h3></summary>
+
+> **LinkedList** is a linear data structure where elements (nodes) are stored in memory locations not necessarily contiguous. Each node contains data and reference(s) to next node(s).
+
+### LinkedList Hierarchy
+
+```
+Node Types:
+├── Singly LinkedList - Each node has 1 link (next)
+├── Doubly LinkedList - Each node has 2 links (next, prev)
+└── Circular LinkedList - Last node links back to first node
+    ├── Circular Singly
+    └── Circular Doubly
+```
+
+---
+
+### 1️⃣ **Singly LinkedList - Complete Implementation**
+
+#### 🏗️ Node Structure
+
+```java
+class Node {
+    int val;           // Data
+    Node next;         // Reference to next node
+    
+    Node(int value) {
+        this.val = value;
+        this.next = null;
+    }
+}
+```
+
+#### 📝 Singly LinkedList Operations
+
+**Prepend (Add at Start)** | **O(1)**
+```java
+public void prepend(int val) {
+    Node newNode = new Node(val);
+    newNode.next = head;
+    head = newNode;
+    size++;
+}
+```
+
+**Append (Add at End)** | **O(n)**
+```java
+public void append(int val) {
+    Node newNode = new Node(val);
+    if (head == null) {
+        head = newNode;
+    } else {
+        Node temp = head;
+        while (temp.next != null) temp = temp.next;
+        temp.next = newNode;
+    }
+    size++;
+}
+```
+
+**Insert at Index** | **O(n)**
+```java
+public void insertAtIndex(int index, int val) {
+    if (index < 0 || index > size) return;
+    if (index == 0) { prepend(val); return; }
+    
+    Node newNode = new Node(val);
+    Node temp = head;
+    for (int i = 0; i < index - 1; i++) temp = temp.next;
+    
+    newNode.next = temp.next;
+    temp.next = newNode;
+    size++;
+}
+```
+
+**Insert Between Values** | **O(n)**
+```java
+public void insertBetween(int after, int before, int val) {
+    Node temp = head;
+    while (temp != null && temp.val != after) temp = temp.next;
+    
+    if (temp == null || (temp.next != null && temp.next.val != before)) return;
+    
+    Node newNode = new Node(val);
+    newNode.next = temp.next;
+    temp.next = newNode;
+    size++;
+}
+```
+
+**Delete from Start** | **O(1)**
+```java
+public void deleteStart() {
+    if (head == null) return;
+    head = head.next;
+    size--;
+}
+```
+
+**Delete from End** | **O(n)**
+```java
+public void deleteEnd() {
+    if (head == null) return;
+    if (head.next == null) { head = null; size--; return; }
+    
+    Node temp = head;
+    while (temp.next.next != null) temp = temp.next;
+    temp.next = null;
+    size--;
+}
+```
+
+**Delete at Index** | **O(n)**
+```java
+public void deleteAtIndex(int index) {
+    if (index < 0 || index >= size) return;
+    if (index == 0) { deleteStart(); return; }
+    
+    Node temp = head;
+    for (int i = 0; i < index - 1; i++) temp = temp.next;
+    temp.next = temp.next.next;
+    size--;
+}
+```
+
+**Delete by Value** | **O(n)**
+```java
+public void deleteByValue(int val) {
+    if (head == null) return;
+    if (head.val == val) { deleteStart(); return; }
+    
+    Node temp = head;
+    while (temp.next != null && temp.next.val != val) temp = temp.next;
+    if (temp.next != null) {
+        temp.next = temp.next.next;
+        size--;
+    }
+}
+```
+
+---
+
+### 2️⃣ **Doubly LinkedList - Complete Implementation**
+
+#### 🏗️ Node Structure
+
+```java
+class DoublyNode {
+    int val;
+    DoublyNode next;
+    DoublyNode prev;
+    
+    DoublyNode(int value) {
+        this.val = value;
+        this.next = null;
+        this.prev = null;
+    }
+}
+```
+
+#### 📝 Doubly LinkedList Operations
+
+**Prepend (Add at Start)** | **O(1)**
+```java
+public void prepend(int val) {
+    DoublyNode newNode = new DoublyNode(val);
+    if (head == null) {
+        head = tail = newNode;
+    } else {
+        newNode.next = head;
+        head.prev = newNode;
+        head = newNode;
+    }
+    size++;
+}
+```
+
+**Append (Add at End)** | **O(1)**
+```java
+public void append(int val) {
+    DoublyNode newNode = new DoublyNode(val);
+    if (tail == null) {
+        head = tail = newNode;
+    } else {
+        tail.next = newNode;
+        newNode.prev = tail;
+        tail = newNode;
+    }
+    size++;
+}
+```
+
+**Insert at Index** | **O(n)**
+```java
+public void insertAtIndex(int index, int val) {
+    if (index < 0 || index > size) return;
+    if (index == 0) { prepend(val); return; }
+    if (index == size) { append(val); return; }
+    
+    DoublyNode newNode = new DoublyNode(val);
+    DoublyNode temp = head;
+    for (int i = 0; i < index - 1; i++) temp = temp.next;
+    
+    newNode.next = temp.next;
+    newNode.prev = temp;
+    temp.next.prev = newNode;
+    temp.next = newNode;
+    size++;
+}
+```
+
+**Insert Between Values** | **O(n)**
+```java
+public void insertBetween(int after, int before, int val) {
+    DoublyNode temp = head;
+    while (temp != null && temp.val != after) temp = temp.next;
+    
+    if (temp == null || temp.next == null || temp.next.val != before) return;
+    
+    DoublyNode newNode = new DoublyNode(val);
+    newNode.next = temp.next;
+    newNode.prev = temp;
+    temp.next.prev = newNode;
+    temp.next = newNode;
+    size++;
+}
+```
+
+**Delete from Start** | **O(1)**
+```java
+public void deleteStart() {
+    if (head == null) return;
+    if (head == tail) {
+        head = tail = null;
+    } else {
+        head = head.next;
+        head.prev = null;
+    }
+    size--;
+}
+```
+
+**Delete from End** | **O(1)**
+```java
+public void deleteEnd() {
+    if (tail == null) return;
+    if (head == tail) {
+        head = tail = null;
+    } else {
+        tail = tail.prev;
+        tail.next = null;
+    }
+    size--;
+}
+```
+
+**Delete at Index** | **O(n)**
+```java
+public void deleteAtIndex(int index) {
+    if (index < 0 || index >= size) return;
+    if (index == 0) { deleteStart(); return; }
+    if (index == size - 1) { deleteEnd(); return; }
+    
+    DoublyNode temp = head;
+    for (int i = 0; i < index; i++) temp = temp.next;
+    
+    temp.prev.next = temp.next;
+    temp.next.prev = temp.prev;
+    size--;
+}
+```
+
+**Delete by Value** | **O(n)**
+```java
+public void deleteByValue(int val) {
+    if (head == null) return;
+    if (head.val == val) { deleteStart(); return; }
+    if (tail.val == val) { deleteEnd(); return; }
+    
+    DoublyNode temp = head;
+    while (temp != null && temp.val != val) temp = temp.next;
+    
+    if (temp != null) {
+        temp.prev.next = temp.next;
+        temp.next.prev = temp.prev;
+        size--;
+    }
+}
+```
+
+---
+
+### 3️⃣ **Circular Doubly LinkedList - Complete Implementation**
+
+#### 📝 Key Operations (From Day5LL.java)
+
+**Prepend (Add at Start)** | **O(1)**
+```java
+public void prepend(int val) {
+    DoublyNode newNode = new DoublyNode(val);
+    if (head == null) {
+        head = tail = newNode;
+        head.next = head.prev = head;  // Circular
+    } else {
+        newNode.next = head;
+        newNode.prev = tail;
+        head.prev = newNode;
+        tail.next = newNode;
+        head = newNode;
+    }
+    size++;
+}
+```
+
+**Append (Add at End)** | **O(1)**
+```java
+public void append(int val) {
+    DoublyNode newNode = new DoublyNode(val);
+    if (head == null) {
+        head = tail = newNode;
+        head.next = head.prev = head;
+    } else {
+        newNode.prev = tail;
+        newNode.next = head;
+        tail.next = newNode;
+        head.prev = newNode;
+        tail = newNode;
+    }
+    size++;
+}
+```
+
+**Insert at Index** | **O(n)**
+```java
+public void insertAtIndex(int index, int val) {
+    if (index < 0 || index > size) return;
+    if (index == 0) { prepend(val); return; }
+    if (index == size) { append(val); return; }
+    
+    DoublyNode newNode = new DoublyNode(val);
+    DoublyNode temp = head;
+    for (int i = 0; i < index - 1; i++) temp = temp.next;
+    
+    newNode.next = temp.next;
+    newNode.prev = temp;
+    temp.next.prev = newNode;
+    temp.next = newNode;
+    size++;
+}
+```
+
+**Insert Between Values** | **O(n)**
+```java
+public void insertBetween(int after, int before, int val) {
+    DoublyNode temp = head;
+    do {
+        if (temp.val == after && temp.next.val == before) {
+            DoublyNode newNode = new DoublyNode(val);
+            newNode.next = temp.next;
+            newNode.prev = temp;
+            temp.next.prev = newNode;
+            temp.next = newNode;
+            size++;
+            return;
+        }
+        temp = temp.next;
+    } while (temp != head);
+}
+```
+
+**Delete from Start** | **O(1)**
+```java
+public void deleteStart() {
+    if (head == null) return;
+    if (head == tail) {
+        head = tail = null;
+    } else {
+        head = head.next;
+        head.prev = tail;
+        tail.next = head;
+    }
+    size--;
+}
+```
+
+**Delete from End** | **O(1)**
+```java
+public void deleteEnd() {
+    if (tail == null) return;
+    if (head == tail) {
+        head = tail = null;
+    } else {
+        tail = tail.prev;
+        tail.next = head;
+        head.prev = tail;
+    }
+    size--;
+}
+```
+
+**Delete at Index** | **O(n)**
+```java
+public void deleteAtIndex(int index) {
+    if (index < 0 || index >= size) return;
+    if (index == 0) { deleteStart(); return; }
+    if (index == size - 1) { deleteEnd(); return; }
+    
+    DoublyNode temp = head;
+    for (int i = 0; i < index; i++) temp = temp.next;
+    
+    temp.prev.next = temp.next;
+    temp.next.prev = temp.prev;
+    size--;
+}
+```
+
+**Delete by Value** | **O(n)**
+```java
+public void deleteByValue(int val) {
+    if (head == null) return;
+    if (head == tail && head.val == val) { head = tail = null; size--; return; }
+    
+    DoublyNode temp = head;
+    do {
+        if (temp.val == val) {
+            if (temp == head) deleteStart();
+            else if (temp == tail) deleteEnd();
+            else {
+                temp.prev.next = temp.next;
+                temp.next.prev = temp.prev;
+                size--;
+            }
+            return;
+        }
+        temp = temp.next;
+    } while (temp != head);
+}
+```
+
+**Print List (Forward)** | **O(n)**
+```java
+public void printList() {
+    if (head == null) return;
+    DoublyNode temp = head;
+    do {
+        System.out.print(temp.val + " ⇄ ");
+        temp = temp.next;
+    } while (temp != head);
+    System.out.println("(back to " + head.val + ")");
+}
+```
+
+**Print Reverse** | **O(n)**
+```java
+public void printReverse() {
+    if (tail == null) return;
+    DoublyNode temp = tail;
+    do {
+        System.out.print(temp.val + " ⇄ ");
+        temp = temp.prev;
+    } while (temp != tail);
+    System.out.println("(back to " + tail.val + ")");
+}
+```
+
+---
+
+### 📊 LinkedList Type Comparison
+
+| Aspect | Singly | Doubly | Circular |
+|:-------|:------:|:------:|:--------:|
+| **Memory** | O(n) | O(n) | O(n) |
+| **Forward Traversal** | O(n) | O(n) | O(n) |
+| **Backward Traversal** | ❌ Not possible | ✅ O(n) | ✅ O(n) |
+| **Insert/Delete Start** | O(1) | O(1) | O(1) |
+| **Insert/Delete End** | O(n) | O(1) | O(1) |
+| **Insert/Delete Middle** | O(n) | O(n) | O(n) |
+| **Use Case** | Simple list | Two-way navigation | Music playlists, gaming |
+
+### 🎯 Complexity Summary
+
+```
+                Singly  Doubly  Circular
+Access          O(n)    O(n)    O(n)
+Search          O(n)    O(n)    O(n)
+Insert Start    O(1)    O(1)    O(1)
+Insert End      O(n)    O(1)    O(1)
+Delete Start    O(1)    O(1)    O(1)
+Delete End      O(n)    O(1)    O(1)
+```
+
+</details>
+
+---
+
+## ✅ Problems Covered - Day 5
+
+### 📋 **Backtracking, Recursion & LinkedList**
+
+| # | Problem | Difficulty | Concept | Status |
+|:-:|:--------|:----------:|:--------|:------:|
+| 1 | Backtracking Concepts | 🟡 Medium | N Queens explanation | ✅ |
+| 2 | N Queens Problem | 🟠 Hard | Constraint satisfaction | ✅ Concept |
+| 3 | Count Total Paths | 🟡 Medium | Recursion + Decision tree | ✅ |
+| 4 | Singly LinkedList - All Ops | 🟡 Medium | Creation, traversal, insert, delete | ✅ |
+| 5 | Doubly LinkedList - All Ops | 🟡 Medium | Bidirectional, insert, delete | ✅ |
+| 6 | Circular Doubly LinkedList | 🟠 Hard | Circular references, all ops | ✅ |
+
+---
+
+## ✅ Problems Covered - Day 4
 
 ### 📋 **Collections & Arrays**
 
@@ -2181,77 +2937,6 @@ Result: Element 1 appears more than n/3 times!
 </details>
 
 ## 📚 Quick Reference
-
-### 🎓 Key Concepts to Remember
-
-```
-DAY 1 SUMMARY:
-
-1. ARRAYS:
-   - Fixed size, indexed access O(1)
-   - Use for: fixed-size collections
-   - Enhanced for loop: for(int x : arr)
-
-2. ARRAYLIST:
-   - Dynamic size, indexed access O(1)
-   - Common methods: add(), get(), remove(), set()
-   - Use for: flexible collections
-
-3. COLLECTIONS:
-   - List: ordered with duplicates
-   - Queue: FIFO processing
-   - Map: key-value pairs
-   - Set: unordered, no duplicates
-
-4. LISTS:
-   - ArrayList: random access O(1), add/remove O(n)
-   - LinkedList: fast add/remove O(1) at ends
-
-5. PROBLEM-SOLVING:
-   - Move Zeroes: Two Pointers technique O(n)
-   - Brute Force: O(n²) time, O(1) space
-   - HashSet: O(n) time, O(n) space - RECOMMENDED
-
----
-
-DAY 2 SUMMARY:
-
-1. SETS:
-   - HashSet: O(1) average, unordered, fastest
-   - LinkedHashSet: O(1) average, maintains insertion order
-   - TreeSet: O(log n), maintains sorted order
-   - All prevent duplicates
-
-2. SET OPERATIONS:
-   - add(), remove(), contains() - all O(1) avg in HashSet
-   - Iterator pattern for traversal
-   - size(), isEmpty() for checking
-
-3. CHECK DUPLICATES:
-   - Method 1: Compare set.size() with array.length - simple
-   - Method 2: Set.contains() check - tracks duplicates
-   - Time: O(n), Space: O(n)
-
-4. MAPS:
-   - HashMap: O(1) average, unordered, fastest
-   - LinkedHashMap: O(1) average, maintains insertion order
-   - TreeMap: O(log n), maintains sorted keys
-   - Each key maps to exactly one value
-
-5. MAP OPERATIONS:
-   - put(), get(), remove() - O(1) avg in HashMap
-   - containsKey() - O(1) avg
-   - entrySet() for efficient iteration
-   - Frequency counting pattern
-
-6. FREQUENCY COUNTING:
-   - Use map.containsKey() to check if element exists
-   - Increment count if exists, else put with count 1
-   - Iterate using entrySet() for efficiency
-   - Time: O(n), Space: O(n)
-```
-
----
 
 ## 💻 Code Structure Best Practices
 
