@@ -6,7 +6,7 @@
 ![Status](https://img.shields.io/badge/Status-Active%20Learning-success?style=for-the-badge)
 ![Students](https://img.shields.io/badge/NMIMS-Engineering%20Students-blue?style=for-the-badge)
 ![Batch](https://img.shields.io/badge/Batch-IT%20&%20CE%20(Batch%202)%20&%20CS%20(Batch%204)-red?style=for-the-badge)
-![Progress](https://img.shields.io/badge/Day%205-Completed-brightgreen?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Day%206-Completed-brightgreen?style=for-the-badge)
 ![Training](https://img.shields.io/badge/Training-In%20Progress-success?style=for-the-badge)
 
 ### 🚀 *Master Data Structures & Algorithms with Java!*
@@ -120,14 +120,24 @@ Day 5 - Backtracking, Recursion & LinkedList (Singly, Doubly, Circular):
 ✅ Circular Doubly LinkedList - All Operations with Circular Structure
 ✅ Advanced LinkedList Problems & Practice
 
-Day 6 - Stack & Queue:
+Day 6 - Stack Implementation:
+████████████████████████████████ 100%
+
+✅ Stack - Array Implementation
+✅ Stack - ArrayList Implementation  
+✅ Stack - LinkedList Implementation
+✅ Stack using Collections Framework
+✅ Valid Parentheses Problem (using Stack)
+✅ Problem Solving & Practice
+
+Day 7 - Prefix, Infix, Postfix & Queue:
 🔜 IN PROGRESS
 
-⏳ Stack - ArrayList Implementation
-⏳ Stack - LinkedList Implementation
-⏳ Queue - LinkedList Implementation (Start, not complete)
-⏳ Queue - ArrayDeque Implementation (Coming next)
-⏳ Priority Queue & Advanced Operations
+⏳ Prefix, Infix, Postfix Notation - Concepts & Conversions
+⏳ Queue - LinkedList Implementation
+⏳ Queue using Collections Framework
+⏳ Deque (Double Ended Queue) Operations
+⏳ Queue-based Problem Solving
 ```
 
 ---
@@ -171,10 +181,29 @@ graph TB
         Z --> AA["🎯 Quick Sort"]
         AA --> AB["🔥 Advanced Problems"]
     end
+
+     subgraph Day6["📅 DAY 6: Stack Implementation"]
+        AC["🥞 Stack Concept"] --> AD["📚 Array Stack"]
+        AD --> AE["🎯 ArrayList Stack"]
+        AE --> AF["🔗 LinkedList Stack"]
+        AF --> AG["📦 Collections Stack"]
+        AG --> AH["✅ Valid Parentheses"]
+    end
+    
+    subgraph Day7["📅 DAY 7: Infix/Postfix & Queue"]
+        AI["🔤 Prefix Notation"] --> AJ["🔄 Infix Notation"]
+        AJ --> AK["➡️ Postfix Notation"]
+        AK --> AL["🔀 Conversions"]
+        AL --> AM["📬 Queue Basics"]
+        AM --> AN["🔗 LinkedList Queue"]
+        AN --> AO["🏗️ Deque Operations"]
+    end
     
     F --> G
     M --> N
     U --> V
+    U --> AC
+    AH --> AI
     
     style Day1 fill:#90EE90,stroke:#228B22,stroke-width:3px
     style Day2 fill:#87CEEB,stroke:#4169E1,stroke-width:3px
@@ -185,7 +214,11 @@ graph TB
 ---
 
 
-## 📚 Topics Covered
+---
+
+# 📅 DAY 1: Collections & Arrays
+
+## 📚 DAY 1 - Topics
 
 <details open>
 <summary><h3>📦 Arrays & ArrayList</h3></summary>
@@ -794,7 +827,24 @@ public class RemoveDuplicates {
 
 ---
 
-## 📚 Day 4: Regular Expressions & Recursion Mastery
+## ✅ DAY 1 - Problems Covered
+
+### 📋 **Collections & Arrays**
+
+| # | Problem | Difficulty | Concept | Status |
+|:-:|:--------|:----------:|:--------|:------:|
+| 1 | Array Input/Output | 🟢 Easy | Array Basics | ✅ |
+| 2 | ArrayList Operations | 🟢 Easy | ArrayList Methods | ✅ |
+| 3 | Move Zeroes to End | 🟡 Medium | Two Pointers | ✅ |
+| 4 | Remove Duplicates (Brute Force) | 🟡 Medium | Nested Loops | ✅ |
+| 5 | Remove Duplicates (HashSet) | 🟡 Medium | Collections | ✅ |
+| 6 | ArrayList Iteration Methods | 🟢 Easy | Collections | ✅ |
+
+---
+
+# 📅 DAY 2: Set & Map Interfaces
+
+## 📚 DAY 2 - Topics
 
 ---
 
@@ -2338,6 +2388,525 @@ Delete End      O(n)    O(1)    O(1)
 | 7 | Entry Set Iteration | 🟡 Medium | Map.Entry, entrySet() | ✅ |
 
 ---
+
+---
+
+# 📅 DAY 6: Stack Implementation
+
+<details open>
+<summary><h3>🥞 Stack Fundamentals - LIFO Data Structure</h3></summary>
+
+> **Stack** is a Last-In-First-Out (LIFO) data structure where elements are added and removed from the same end (top).
+
+### 1️⃣ **Stack Concept & Use Cases**
+
+**Real-world analogy:**
+- Plate stacking (add/remove from top)
+- Browser back button (history stack)
+- Function call stack (recursion)
+- Undo/Redo functionality
+
+**Key Operations:**
+- **push(E):** Add element to top | O(1)
+- **pop():** Remove element from top | O(1)
+- **peek():** View top element without removing | O(1)
+- **isEmpty():** Check if stack is empty | O(1)
+- **size():** Get total elements | O(1)
+
+---
+
+### 2️⃣ **Array-based Stack Implementation**
+
+```java
+public class ArrayStack {
+    private int[] arr;
+    private int top = -1;
+    private int capacity;
+    
+    // Constructor
+    public ArrayStack(int size) {
+        arr = new int[size];
+        capacity = size;
+    }
+    
+    // PUSH - Add element | O(1)
+    public void push(int val) {
+        if (top == capacity - 1) {
+            System.out.println("Stack Overflow!");
+            return;
+        }
+        arr[++top] = val;
+    }
+    
+    // POP - Remove and return top element | O(1)
+    public int pop() {
+        if (top == -1) {
+            System.out.println("Stack Underflow!");
+            return -1;
+        }
+        return arr[top--];
+    }
+    
+    // PEEK - View top element | O(1)
+    public int peek() {
+        if (top == -1) {
+            System.out.println("Stack is empty!");
+            return -1;
+        }
+        return arr[top];
+    }
+    
+    // isEmpty - Check if empty | O(1)
+    public boolean isEmpty() {
+        return top == -1;
+    }
+    
+    // SIZE - Get element count | O(1)
+    public int size() {
+        return top + 1;
+    }
+    
+    // PRINT - Display stack contents
+    public void print() {
+        if (top == -1) {
+            System.out.println("Stack is empty");
+            return;
+        }
+        System.out.print("Stack: ");
+        for (int i = top; i >= 0; i--) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        ArrayStack stack = new ArrayStack(5);
+        
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        stack.print();  // Stack: 30 20 10
+        
+        System.out.println("Peek: " + stack.peek());  // 30
+        System.out.println("Popped: " + stack.pop()); // 30
+        
+        stack.print();  // Stack: 20 10
+    }
+}
+```
+
+**Characteristics:**
+- ✅ Fixed size (predefined capacity)
+- ✅ Overflow possible when full
+- ✅ Fast O(1) operations
+- ❌ Memory wasted if capacity not used
+- ❌ Cannot grow dynamically
+
+---
+
+### 3️⃣ **ArrayList-based Stack Implementation**
+
+```java
+import java.util.*;
+
+public class ArrayListStack {
+    private ArrayList<Integer> arr;
+    
+    // Constructor
+    public ArrayListStack() {
+        arr = new ArrayList<>();
+    }
+    
+    // PUSH - Add element | O(1) amortized
+    public void push(int val) {
+        arr.add(val);
+    }
+    
+    // POP - Remove and return top element | O(1) amortized
+    public int pop() {
+        if (arr.isEmpty()) {
+            System.out.println("Stack Underflow!");
+            return -1;
+        }
+        return arr.remove(arr.size() - 1);
+    }
+    
+    // PEEK - View top element | O(1)
+    public int peek() {
+        if (arr.isEmpty()) {
+            System.out.println("Stack is empty!");
+            return -1;
+        }
+        return arr.get(arr.size() - 1);
+    }
+    
+    // isEmpty - Check if empty | O(1)
+    public boolean isEmpty() {
+        return arr.isEmpty();
+    }
+    
+    // SIZE - Get element count | O(1)
+    public int size() {
+        return arr.size();
+    }
+    
+    // PRINT - Display stack contents
+    public void print() {
+        if (arr.isEmpty()) {
+            System.out.println("Stack is empty");
+            return;
+        }
+        System.out.print("Stack: ");
+        for (int i = arr.size() - 1; i >= 0; i--) {
+            System.out.print(arr.get(i) + " ");
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        ArrayListStack stack = new ArrayListStack();
+        
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        stack.print();  // Stack: 30 20 10
+        
+        System.out.println("Peek: " + stack.peek());  // 30
+        System.out.println("Popped: " + stack.pop()); // 30
+        
+        stack.print();  // Stack: 20 10
+    }
+}
+```
+
+**Characteristics:**
+- ✅ Dynamic size (grows automatically)
+- ✅ No overflow concerns
+- ✅ Memory efficient
+- ✅ O(1) amortized operations
+- ❌ Slightly slower than array (rare resizing)
+
+---
+
+### 4️⃣ **LinkedList-based Stack Implementation**
+
+```java
+public class LinkedListStack {
+    private class Node {
+        int val;
+        Node next;
+        
+        Node(int value) {
+            this.val = value;
+            this.next = null;
+        }
+    }
+    
+    private Node top = null;
+    private int size = 0;
+    
+    // PUSH - Add element to top | O(1)
+    public void push(int val) {
+        Node newNode = new Node(val);
+        newNode.next = top;
+        top = newNode;
+        size++;
+    }
+    
+    // POP - Remove and return top element | O(1)
+    public int pop() {
+        if (top == null) {
+            System.out.println("Stack Underflow!");
+            return -1;
+        }
+        int val = top.val;
+        top = top.next;
+        size--;
+        return val;
+    }
+    
+    // PEEK - View top element | O(1)
+    public int peek() {
+        if (top == null) {
+            System.out.println("Stack is empty!");
+            return -1;
+        }
+        return top.val;
+    }
+    
+    // isEmpty - Check if empty | O(1)
+    public boolean isEmpty() {
+        return top == null;
+    }
+    
+    // SIZE - Get element count | O(1)
+    public int size() {
+        return size;
+    }
+    
+    // PRINT - Display stack contents
+    public void print() {
+        if (top == null) {
+            System.out.println("Stack is empty");
+            return;
+        }
+        System.out.print("Stack: ");
+        Node temp = top;
+        while (temp != null) {
+            System.out.print(temp.val + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListStack stack = new LinkedListStack();
+        
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        stack.print();  // Stack: 30 20 10
+        
+        System.out.println("Peek: " + stack.peek());  // 30
+        System.out.println("Popped: " + stack.pop()); // 30
+        
+        stack.print();  // Stack: 20 10
+    }
+}
+```
+
+**Characteristics:**
+- ✅ Dynamic size
+- ✅ No memory waste
+- ✅ O(1) all operations
+- ✅ No overflow
+- ❌ Extra memory for pointers
+- ❌ Slight pointer overhead
+
+---
+
+### 5️⃣ **Stack using Java Collections Framework**
+
+```java
+import java.util.Stack;
+
+public class CollectionsStack {
+    public static void main(String[] args) {
+        // Create stack using Collections
+        Stack<Integer> stack = new Stack<>();
+        
+        // PUSH - Add elements | O(1)
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        System.out.println("Stack: " + stack);
+        // Output: [10, 20, 30]
+        
+        // PEEK - View top element | O(1)
+        System.out.println("Peek: " + stack.peek());  // 30
+        
+        // POP - Remove top element | O(1)
+        System.out.println("Popped: " + stack.pop()); // 30
+        System.out.println("Stack: " + stack);        // [10, 20]
+        
+        // isEmpty - Check if empty | O(1)
+        System.out.println("Is empty: " + stack.isEmpty()); // false
+        
+        // SIZE - Get element count | O(1)
+        System.out.println("Size: " + stack.size()); // 2
+        
+        // SEARCH - Find position from top | O(n)
+        System.out.println("Position of 20: " + stack.search(20)); // 1
+        System.out.println("Position of 10: " + stack.search(10)); // 2
+    }
+}
+```
+
+**Output:**
+
+Stack: [10, 20, 30]
+Peek: 30
+Popped: 30
+Stack: [10, 20]
+Is empty: false
+Size: 2
+Position of 20: 1
+Position of 10: 2
+
+---
+
+### 📊 Stack Implementation Comparison
+
+| Aspect | Array | ArrayList | LinkedList | Collections |
+|:-------|:-----:|:---------:|:----------:|:-----------:|
+| **Push** | O(1) | O(1) amortized | O(1) | O(1) |
+| **Pop** | O(1) | O(1) amortized | O(1) | O(1) |
+| **Peek** | O(1) | O(1) | O(1) | O(1) |
+| **Memory** | Fixed | Grows | Dynamic | Dynamic |
+| **Overflow** | ✅ Possible | ❌ No | ❌ No | ❌ No |
+| **Use Case** | Learning | General | Advanced | Production |
+
+---
+
+</details>
+
+<details open>
+<summary><h3>✅ Valid Parentheses Problem - Using Stack</h3></summary>
+
+> **Problem:** Check if a string with parentheses, brackets, and braces is valid (properly matched and closed).
+
+### 🎯 Problem Definition
+
+**Valid:** Every opening bracket has a matching closing bracket in correct order.
+
+"()" ✅
+"()[]{}" ✅
+"([{}])" ✅
+"(]" ❌ Wrong closing bracket
+"([)]" ❌ Crossing brackets
+"(((" ❌ Unclosed
+
+
+### 1️⃣ **Solution Using Stack**
+
+```java
+import java.util.Stack;
+
+public class ValidParentheses {
+    
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        
+        for (char ch : s.toCharArray()) {
+            if (ch == '(' || ch == '[' || ch == '{') {
+                // Opening bracket - push to stack
+                stack.push(ch);
+            } else {
+                // Closing bracket - check if matches top of stack
+                
+                // Stack empty = no matching opening bracket
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                
+                char top = stack.pop();
+                
+                // Check if closing bracket matches opening bracket
+                if ((ch == ')' && top != '(') ||
+                    (ch == ']' && top != '[') ||
+                    (ch == '}' && top != '{')) {
+                    return false;
+                }
+            }
+        }
+        
+        // After processing all characters, stack should be empty
+        return stack.isEmpty();
+    }
+    
+    public static void main(String[] args) {
+        String[] testCases = {
+            "()",        // ✅ Valid
+            "()[]{}",    // ✅ Valid
+            "([{}])",    // ✅ Valid
+            "(]",        // ❌ Invalid
+            "([)]",      // ❌ Invalid
+            "(((",       // ❌ Invalid
+            "",          // ✅ Valid (empty)
+            "([{}])"     // ✅ Valid
+        };
+        
+        for (String test : testCases) {
+            System.out.println("\"" + test + "\" → " + isValid(test));
+        }
+    }
+}
+```
+
+**Output:**
+
+"()" → true
+"()[]{}" → true
+"([{}])" → true
+"(]" → false
+"([)]" → false
+"(((" → false
+"" → true
+"([{}])" → true
+
+
+### 2️⃣ **Dry Run: isValid("([{}])")**
+
+Character by character:
+ch='(' → Opening bracket, push to stack
+stack = ['(']
+ch='[' → Opening bracket, push to stack
+stack = ['(', '[']
+ch='{' → Opening bracket, push to stack
+stack = ['(', '[', '{']
+ch='}' → Closing bracket
+top = stack.pop() = '{'
+'}' matches '{' ✅
+stack = ['(', '[']
+ch=']' → Closing bracket
+top = stack.pop() = '['
+']' matches '[' ✅
+stack = ['(']
+ch=')' → Closing bracket
+top = stack.pop() = '('
+')' matches '(' ✅
+stack = []
+Final: stack.isEmpty() = true ✅
+Result: Valid!
+
+### 3️⃣ **Dry Run: isValid("([)]")**
+
+ch='(' → push, stack = ['(']
+ch='[' → push, stack = ['(', '[']
+ch=')' → top = stack.pop() = '[', ')' expects '(' ❌ MISMATCH!
+return false
+Result: Invalid!
+
+### ⏱️ Complexity Analysis
+
+**Time Complexity:** O(n)
+- Each character processed once
+- Stack operations (push/pop) are O(1)
+
+**Space Complexity:** O(n)
+- In worst case, all opening brackets stored in stack
+- Example: "(((((" → stack size = 5
+
+### 🎯 Key Insights
+
+1. **Stack is perfect for matching:** Stores opening brackets, matches with closing
+2. **LIFO property:** Last opened bracket is first to close
+3. **Early termination:** If unmatched closing bracket found, return false immediately
+4. **Empty check:** Final empty stack means all brackets matched
+
+---
+
+</details>
+
+---
+
+## ✅ Problems Covered - Day 6
+
+### 📋 **Stack Implementation**
+
+| # | Problem | Difficulty | Concept | Status |
+|:-:|:--------|:----------:|:--------|:------:|
+| 1 | Stack Array Implementation | 🟡 Medium | Fixed capacity | ✅ |
+| 2 | Stack ArrayList Implementation | 🟡 Medium | Dynamic sizing | ✅ |
+| 3 | Stack LinkedList Implementation | 🟡 Medium | Pointer-based | ✅ |
+| 4 | Stack Collections Framework | 🟢 Easy | Built-in Stack class | ✅ |
+| 5 | Valid Parentheses Problem | 🟡 Medium | Stack matching | ✅ |
+
+---
+
+
+
+
 
 ## 📚 Topics Covered - Day 2
 
