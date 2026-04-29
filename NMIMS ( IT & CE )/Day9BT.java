@@ -83,8 +83,8 @@ public class Day9BT {
             return 0;
         }
 
-        int leftSum = sumOfAllNodes(root.left); // Correct CODE
-        int rightSum = sumOfAllNodes(root.right); // Correct Code 
+        int leftSum = sumOfAllNodes(root.left); // Correct Code
+        int rightSum = sumOfAllNodes(root.right); // Correct Code
 
         return leftSum + rightSum + root.data;
     }
